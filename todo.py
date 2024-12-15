@@ -7,11 +7,11 @@ exit_char = 'q'
 while True:
     print("Choose an action to proceed.") 
     print("Type \"add\" to add a task, \"show\" to show current todo list, \"edit\" to edit an item,")
-    print("\"done\" to mark an item as complete or \"q\" to quit.")
+    print("\"done\" to mark an item as complete or \"quit\" to exit the program.")
     user_choice = input("Action: ").lower().strip()
     print()
 
-    if "add" in user_choice:
+    if user_choice.startswith('add'):
         todo = user_choice[4:]
         print(todo.capitalize())
         print()
@@ -26,13 +26,13 @@ while True:
         with open('resources/data/todos.txt', 'r') as file:
             todos = file.readlines()
             
-        todos.append(todo)
+        todos.append(todo + '\n')
 
         # Write the added item to text file
         with open('resources/data/todos.txt', 'w') as file:
             file.writelines(todos)
 
-    elif "show" in user_choice:
+    elif user_choice.startswith('show'):
         # file access
         with open('resources/data/todos.txt', 'r') as file:
             todos = file.readlines()
@@ -43,42 +43,56 @@ while True:
 
         print()
 
-    elif "edit" in user_choice:
-        list_number = int(user_choice[5:])
-        list_number = list_number - 1
-        # Read text file
-        with open('resources/data/todos.txt', 'r') as file:
-            todos = file.readlines()
-            
-        item_to_edit = todos[list_number]
-        print(f"This is the item you want to replace -> '{item_to_edit.strip('\n')}'")
+    elif user_choice.startswith('edit'):
+        try:
+            list_number = int(user_choice[5:])
+            list_number = list_number - 1
+            # Read text file
+            with open('resources/data/todos.txt', 'r') as file:
+                todos = file.readlines()
+                
+            item_to_edit = todos[list_number]
+            print(f"This is the item you want to replace -> '{item_to_edit.strip('\n')}'")
 
-        new_item = input("Enter a replacement for the chosen item: ")
-        todos[list_number] = new_item + '\n'
+            new_item = input("Enter a replacement for the chosen item: ")
+            todos[list_number] = new_item + '\n'
 
-        # Write changes to text file
-        with open('resources/data/todos.txt', 'w') as file:
-            file.writelines(todos)
+            # Write changes to text file
+            with open('resources/data/todos.txt', 'w') as file:
+                file.writelines(todos)
 
             print()
-    elif "done" in user_choice:
-        list_no = int(user_choice[5:])
+        except ValueError:
+            print("Your command is not valid. Please follow this syntax for 'edit' command")
+            print("edit <no._of_item_in_todo_list>")
+            print("Ex: edit 3")
+            print()
+            continue
 
-        # Read text file
-        with open('resources/data/todos.txt', 'r') as file:
-            todos = file.readlines()
+    elif user_choice.startswith('done'):
+        try:
+            list_no = int(user_choice[5:])
 
-        list_item = todos.pop(list_no - 1)
+            # Read text file
+            with open('resources/data/todos.txt', 'r') as file:
+                todos = file.readlines()
 
-        # Write changes to the text file
-        with open('resources/data/todos.txt', 'w') as file:
-            file.writelines(todos)
-            
-        print(f"item no.{list_no} with the content: '{list_item.strip('\n')}' has been marked as complete and " +
-              "removed from the list.")
-        # print("removed from the list.")
-        print()
-    elif "q" in user_choice:
+            list_item = todos.pop(list_no - 1)
+
+            # Write changes to the text file
+            with open('resources/data/todos.txt', 'w') as file:
+                file.writelines(todos)
+                
+            print(f"item no.{list_no} with the content: '{list_item.strip('\n')}' has been marked as complete and " +
+                "removed from the list.")
+            # print("removed from the list.")
+            print()
+        except IndexError:
+            print("That item no. does not exist.")
+            print()
+            continue
+
+    elif user_choice.startswith('quit'):
         break
     else:
         print("You have entered an unknown command!")
