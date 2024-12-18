@@ -1,12 +1,12 @@
 # Read text file
-def get_todos(file_path):
+def get_todos(file_path='resources/data/todos.txt'):
     with open(file_path, 'r') as file:
         todos_list = file.readlines()
     return todos_list
 
 
 # Write the list to text file
-def write_todos(file_path, list):
+def write_todos(list, file_path='resources/data/todos.txt'):
     with open(file_path, 'w') as file:
         file.writelines(list)
 
@@ -29,15 +29,15 @@ while True:
         print(todo.capitalize())
         print()
 
-        todos = get_todos('resources/data/todos.txt')
+        todos = get_todos()
             
         todos.append(todo + '\n')
 
-        write_todos('resources/data/todos.txt', todos)
+        write_todos(todos)
         
 
     elif user_choice.startswith('show'):
-        todos = get_todos('resources/data/todos.txt')
+        todos = get_todos()
 
         for index, item in enumerate(todos):
                 item = item.strip('\n')
@@ -49,7 +49,7 @@ while True:
         try:
             list_number = int(user_choice[5:])
             list_number = list_number - 1
-            todos = get_todos('resources/data/todos.txt')
+            todos = get_todos()
                 
             item_to_edit = todos[list_number]
             print(f"This is the item you want to replace -> '{item_to_edit.strip('\n')}'")
@@ -58,7 +58,7 @@ while True:
             todos[list_number] = new_item + '\n'
 
             # Write changes to text file
-            write_todos('resources/data/todos.txt', todos)
+            write_todos(todos)
 
             print()
         except ValueError:
@@ -72,12 +72,12 @@ while True:
         try:
             list_no = int(user_choice[5:])
 
-            todos = get_todos('resources/data/todos.txt')
+            todos = get_todos()
 
             list_item = todos.pop(list_no - 1)
 
             # Write changes to the text file
-            write_todos('resources/data/todos.txt', todos)
+            write_todos(todos)
                 
             print(f"item no.{list_no} with the content: '{list_item.strip('\n')}' has been marked as complete and " +
                 "removed from the list.")
