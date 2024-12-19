@@ -1,15 +1,4 @@
-# Read text file
-def get_todos(file_path='resources/data/todos.txt'):
-    with open(file_path, 'r') as file:
-        todos_list = file.readlines()
-    return todos_list
-
-
-# Write the list to text file
-def write_todos(list, file_path='resources/data/todos.txt'):
-    with open(file_path, 'w') as file:
-        file.writelines(list)
-
+from todosutils import get_todos, write_todos
 
 print("Todo List App\n")
 
