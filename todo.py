@@ -1,9 +1,12 @@
+import time
 from todosutils import get_todos, write_todos
 
 print("Todo List App\n")
 
+date_today = time.strftime("%b %d, %Y %H:%M:%S")
+print("It is", date_today)
+
 user_prompt = "Enter a task to complete: "
-# todos = []
 exit_char = 'q'
 
 while True:
