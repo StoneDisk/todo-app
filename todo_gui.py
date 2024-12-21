@@ -1,12 +1,12 @@
 import todosutils
-import FreeSimpleGUI as fsg
+import FreeSimpleGUI as sg
 
 
-label = fsg.Text("Enter a task")
-input_box = fsg.InputText(tooltip="Type task here")
-add_button = fsg.Button("Add")
+label = sg.Text("Enter a task")
+input_box = sg.InputText(tooltip="Type task here")
+add_button = sg.Button("Add")
 
-window = fsg.Window("Todo App", layout=[[label], [input_box, add_button]])
+window = sg.Window("Todo App", layout=[[label], [input_box, add_button]])
 window.read()
 window.close()
 
