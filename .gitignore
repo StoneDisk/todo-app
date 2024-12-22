@@ -1,3 +1,4 @@
 .t_env/
 resources/
 __pycache__/
+extras/
