@@ -11,8 +11,14 @@ list_box = sg.Listbox(values=item_list,
                       key="items",
                       enable_events=True, size=[45, 10])
 edit_button = sg.Button("Edit")
+complete_button = sg.Button("Complete")
 
-layout = [[label], [input_box, add_button], [list_box, edit_button]]
+exit_button = sg.Button("Exit", key="Quit")
+
+layout = [[label], 
+          [input_box, add_button], 
+          [list_box, edit_button, complete_button],
+          [exit_button]]
 
 window = sg.Window("Todo App", layout, font=("Helvetica", 16))
 
@@ -42,6 +48,13 @@ while True:
             todos[index] = rep_item
             tu.write_todos(todos)
             window['items'].update(values=todos)
+        case 'Complete':
+            item_to_remove = values['items'][0]
+            todo_list = tu.get_todos()
+            todo_list.remove(item_to_remove)
+            tu.write_todos(todo_list)
+            window['items'].update(values=todo_list)
+            window['user_input'].update(value="")
         case 'items':
             selected_item = values['items'][0]
             # mod_item = selected_item.split(' ', 1)[1]
