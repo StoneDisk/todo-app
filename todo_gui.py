@@ -30,8 +30,6 @@ window = sg.Window("Todo App", layout, font=("Helvetica", 14))
 while True:
     event, values = window.read(timeout=200)
     window['clock'].update(value=time.strftime("%b %d, %Y %H:%M:%S"))
-    print(event)
-    print(values)
 
     if event == sg.WINDOW_CLOSED or event == 'Quit':
         break
