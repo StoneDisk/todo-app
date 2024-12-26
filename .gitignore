@@ -2,3 +2,6 @@
 resources/
 __pycache__/
 extras/
+build/
+dist/
+todo_gui.spec
