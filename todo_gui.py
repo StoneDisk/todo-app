@@ -1,7 +1,14 @@
 import todosutils as tu
 import FreeSimpleGUI as sg
 import time
+import os
 
+
+FILE_PATH = 'resources/data/todos.txt'
+
+if not os.path.exists(FILE_PATH):
+    with open(FILE_PATH, 'w') as file:
+        pass
 
 sg.theme("DarkGrey15")
 
