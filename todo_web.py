@@ -1,6 +1,7 @@
 import streamlit as st
 import todosutils
 
+
 todo_list = todosutils.get_todos()
 
 
@@ -14,8 +15,15 @@ st.title("Todo App")
 st.subheader("This is a minimal todo app")
 st.write("Use this app to remember daily tasks.")
 
-for todo in todo_list:
-    st.checkbox(todo)
+for index, todo in enumerate(todo_list):
+    checkbox = st.checkbox(todo, key=f"item{index}")
+
+    if checkbox:
+        todo_list.pop(index)
+        todosutils.write_todos(todo_list)
+        del st.session_state[f"item{index}"]
+        st.rerun()
+
 
 st.text_input(label="**Enter a task:** ", placeholder="Add a new task...",
               key='task_input', on_change=add_todo)
