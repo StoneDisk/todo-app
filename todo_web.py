@@ -28,6 +28,7 @@ for index, todo in enumerate(todo_list):
 st.text_input(label="**Enter a task:** ", placeholder="Add a new task...",
               key='task_input', on_change=add_todo)
 
-# print("Script executed.")
 
-st.session_state
+# The following code is for debugging purposes only
+# print("Script executed.")
+# st.session_state
